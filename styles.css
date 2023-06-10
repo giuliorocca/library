@@ -1,0 +1,10 @@
+.book {
+    background-color: rgb(218, 218, 218);
+}
+
+.formDiv {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    width: 20rem;
+}
