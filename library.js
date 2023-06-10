@@ -18,6 +18,11 @@ function Book(title, author, pages, read){
 // Define a function that prompts the user for a book's details using a form
 // Submit button pushes book's information into myLibrary array
 function addBook() {
+    // Check if a form is already present on the page
+    if (document.querySelector(".formDiv")) {
+        return;
+    }
+    
     const formDiv = document.createElement("div");
     formDiv.classList.add("formDiv");
     
@@ -25,18 +30,21 @@ function addBook() {
     const titleInput = document.createElement("input");
     titleInput.setAttribute("type", "text");
     titleInput.setAttribute("placeholder", "Title");
+    titleInput.style.marginBottom = "10px";
     formDiv.appendChild(titleInput);
 
     // Author input
     const authorInput = document.createElement("input");
     authorInput.setAttribute("type", "text");
     authorInput.setAttribute("placeholder", "Author");
+    authorInput.style.marginBottom = "10px";
     formDiv.appendChild(authorInput);
 
     // Pages input
     const pagesInput = document.createElement("input");
     pagesInput.setAttribute("type", "number");
     pagesInput.setAttribute("placeholder", "Pages");
+    pagesInput.style.marginBottom = "10px";
     formDiv.appendChild(pagesInput);
 
     // Read status input
@@ -47,13 +55,14 @@ function addBook() {
     const readOption2 = document.createElement("option");
     readOption2.setAttribute("value", "not-read");
     readOption2.innerText = "Not read";
+    readInput.style.marginBottom = "15px";
     readInput.appendChild(readOption1);
     readInput.appendChild(readOption2);
     formDiv.appendChild(readInput);
 
     // Submit button
     const submitButton = document.createElement("button");
-    submitButton.innerText = "Add Book";
+    submitButton.innerText = "Submit";
     submitButton.addEventListener("click", function() {
         
         // Push book info into myLibrary array
@@ -85,8 +94,24 @@ function displayLibrary () {
     for (let i = 0; i < myLibrary.length; i++) {
         const book = myLibrary[i];
         const bookDiv = document.createElement("div");
-        bookDiv.textContent = `${book.title} by ${book.author}, ${book.pages}, ${book.read}`;
         bookDiv.classList.add("book");
+        
+        // Create separate elements for each property
+        const titleElement = document.createElement("p");
+        titleElement.textContent = `Title: ${book.title}`;
+        bookDiv.appendChild(titleElement);
+
+        const authorElement = document.createElement("p");
+        authorElement.textContent = `Author: ${book.author}`;
+        bookDiv.appendChild(authorElement);
+
+        const pagesElement = document.createElement("p");
+        pagesElement.textContent = `Pages: ${book.pages}`;
+        bookDiv.appendChild(pagesElement);
+
+        const readElement = document.createElement("p");
+        readElement.textContent = `Read: ${book.read}`;
+        bookDiv.appendChild(readElement);
 
         // Add a toggle read status button
         const readStatusButton = document.createElement("button");
@@ -104,6 +129,7 @@ function displayLibrary () {
         // Add a delete button
         const deleteButton = document.createElement("button");
         deleteButton.innerText = "Delete Book";
+        deleteButton.classList.add("deleteButton");
         deleteButton.addEventListener("click", function() {
             myLibrary.splice(i, 1);
             displayLibrary();
